@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buscar LP</title>
+  <charset="utf-8"></charset>
+</head>
+<style>
+body
+{
+    color:white!important;
+    font-size:60px;
+	 text-shadow:
+    -1px -1px 0 black,
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+}
+</style>
+<body>
+  <h1 id="resultado"></h1>
+
+<script>
+  async function calcularVitoriasNecessarias() {
+    //samkz 22vWm1T1zWUyiz6X3OXII0WmOG8XeNIDuASLtafBLuolx47Ptik_YJdvszabltpggLNLL72FOxzfNA
+    const riotToken = "RGAPI-7103c8bf-a414-4ca9-947f-ba7b678c4c6e";
+	const user_token = "ZH2fXyh9zmBXaawAk9mJ2iGZJUNmvNexDUlZFzaCnpA5hMB1VoT9W5dIZiBq007WrFmmFx6DUDoAFw";
+    try {
+      // Fazendo ambas as requisições em paralelo
+      const [desafioRes, jogadorRes] = await Promise.all([
+        fetch("https://br1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5", {
+          headers: { "X-Riot-Token": riotToken }
+        }),
+        fetch("https://br1.api.riotgames.com/lol/league/v4/entries/by-puuid/"+user_token, {
+          headers: { "X-Riot-Token": riotToken }
+        })
+      ]);
+
+      const desafioData = await desafioRes.json();
+      const jogadorData = await jogadorRes.json();
+
+      const pontos_necessario = desafioData.entries[199]?.leaguePoints || 0;
+      const pontos_atual = jogadorData[0]?.leaguePoints || 0;
+
+      console.log("Pontos necessários:", pontos_necessario);
+      console.log("Pontos atuais:", pontos_atual);
+
+      const pontos_faltando = pontos_necessario - pontos_atual;
+      const vitorias_necessarias = Math.ceil(pontos_faltando / 20);
+
+      console.log("Vitórias necessárias:", vitorias_necessarias);
+      document.getElementById("resultado").innerText = `Faltam ${vitorias_necessarias} vitorias`;
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+  }
+
+  calcularVitoriasNecessarias();
+
+  setInterval(calcularVitoriasNecessarias, 30000);
+</script>
+
+
+</body>
+</html>
