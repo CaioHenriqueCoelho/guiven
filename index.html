@@ -37,9 +37,9 @@ body
 
       const desafioData = await desafioRes.json();
       const jogadorData = await jogadorRes.json();
-
-      const pontos_necessario = desafioData.entries[199]?.leaguePoints || 0;
+      let pontos_necessario = await obterChallengerCutoff() || desafioData.entries[199]?.leaguePoints;
       const pontos_atual = jogadorData[0]?.leaguePoints || 0;
+
 
       console.log("Pontos necessários:", pontos_necessario);
       console.log("Pontos atuais:", pontos_atual);
@@ -49,10 +49,28 @@ body
 
       console.log("Vitórias necessárias:", vitorias_necessarias);
       document.getElementById("resultado").innerText = `Faltam ${vitorias_necessarias} vitorias`;
+
+      fetch('https://b2c-api-cdn.deeplol.gg/summoner/summoner_rank?platform_id=BR1&lane=All&page=1')
+      .then(res => res.json())
+      .then(data => console.log(data.challenger_cut_off))
+      .catch(err => console.error('Erro ao buscar dados:', err));
+
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
     }
   }
+
+  async function obterChallengerCutoff() {
+  try {
+    const res = await fetch('https://b2c-api-cdn.deeplol.gg/summoner/summoner_rank?platform_id=BR1&lane=All&page=1');
+    const data = await res.json();
+    const challengerCutoff = data.challenger_cut_off;
+    console.log('challenger_cut_off:', challengerCutoff);
+    return challengerCutoff; // Retorna o valor para uso posterior
+  } catch (err) {
+    console.error('Erro ao buscar dados:', err);
+  }
+}
 
   function reload(){
 	  window.location.reload()
