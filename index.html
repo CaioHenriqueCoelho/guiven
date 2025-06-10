@@ -37,9 +37,12 @@ body
 
       const desafioData = await desafioRes.json();
       const jogadorData = await jogadorRes.json();
-	  console.log(jogadorData);
+	  
       let pontos_necessario = await obterChallengerCutoff() || desafioData.entries[199]?.leaguePoints;
-      const pontos_atual = jogadorData[1]?.leaguePoints || 0;
+      let escolhido = jogadorData.find(item => item.queueType === "RANKED_SOLO_5x5");
+      
+      const pontos_atual = escolhido?.leaguePoints || 0;
+      console.log(escolhido);
 
 
       console.log("Pontos necessários:", pontos_necessario);
