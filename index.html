@@ -37,8 +37,9 @@ body
 
       const desafioData = await desafioRes.json();
       const jogadorData = await jogadorRes.json();
+	  console.log(jogadorData);
       let pontos_necessario = await obterChallengerCutoff() || desafioData.entries[199]?.leaguePoints;
-      const pontos_atual = jogadorData[0]?.leaguePoints || 0;
+      const pontos_atual = jogadorData[1]?.leaguePoints || 0;
 
 
       console.log("Pontos necessários:", pontos_necessario);
