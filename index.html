@@ -69,16 +69,23 @@ body
       let emoji = "";
 
       if (vitorias_necessarias > 10) {
-        emoji = "😢"; // Triste
+        emoji = "🏳️😩"; // Triste
       } else if (vitorias_necessarias > 5) {
         emoji = "😐"; // Neutro
-      } else if (vitorias_necessarias >= 3) {
+      } else if (vitorias_necessarias > 2) {
         emoji = "😊"; // Feliz
       } else {
         emoji = "🥳🎉🎆"; // Muito feliz com fogos de artifício
       }
 
-      document.getElementById("resultado").innerText = `Faltam ${vitorias_necessarias} vitórias ${emoji}`;
+      if (pontos_atual >= pontos_necessario) {
+          document.getElementById("resultado").innerText = `Guiven Gudef Você conseguiu!!! ${emoji}`;
+      } else if (vitorias_necessarias === 1) {
+          document.getElementById("resultado").innerText = `Apenas ${vitorias_necessarias} vitória ${emoji}`;
+      } else {
+          document.getElementById("resultado").innerText = `Faltam ${vitorias_necessarias} vitórias ${emoji}`;
+      }
+      
 
 
 
@@ -109,7 +116,7 @@ body
   }
   calcularVitoriasNecessarias();
 
-  setInterval(calcularVitoriasNecessarias, 30000);
+  setInterval(calcularVitoriasNecessarias, 15000);
   setInterval(reload, 20 * 60 * 1000);
 </script>
 
