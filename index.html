@@ -8,22 +8,34 @@
 body
 {
     color:white!important;
-    font-size:60px;
+    
 	 text-shadow:
     -1px -1px 0 black,
      1px -1px 0 black,
     -1px  1px 0 black,
      1px  1px 0 black;
 }
+
+
+#resultado {
+  font-size:60px;
+  font-size: 4.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+
+  position: relative;
+}
+
 </style>
 <body>
+
   <h1 id="resultado"></h1>
 
 <script>
   async function calcularVitoriasNecessarias() {
     //samkz 22vWm1T1zWUyiz6X3OXII0WmOG8XeNIDuASLtafBLuolx47Ptik_YJdvszabltpggLNLL72FOxzfNA
     const riotToken = "RGAPI-7103c8bf-a414-4ca9-947f-ba7b678c4c6e";
-	const user_token = "ZH2fXyh9zmBXaawAk9mJ2iGZJUNmvNexDUlZFzaCnpA5hMB1VoT9W5dIZiBq007WrFmmFx6DUDoAFw";
+	  const user_token = "ZH2fXyh9zmBXaawAk9mJ2iGZJUNmvNexDUlZFzaCnpA5hMB1VoT9W5dIZiBq007WrFmmFx6DUDoAFw";
     try {
       // Fazendo ambas as requisições em paralelo
       const [desafioRes, jogadorRes] = await Promise.all([
@@ -52,7 +64,23 @@ body
       const vitorias_necessarias = Math.ceil(pontos_faltando / 20);
 
       console.log("Vitórias necessárias:", vitorias_necessarias);
-      document.getElementById("resultado").innerText = `Faltam ${vitorias_necessarias} vitorias`;
+
+
+      let emoji = "";
+
+      if (vitorias_necessarias > 10) {
+        emoji = "😢"; // Triste
+      } else if (vitorias_necessarias > 5) {
+        emoji = "😐"; // Neutro
+      } else if (vitorias_necessarias >= 3) {
+        emoji = "😊"; // Feliz
+      } else {
+        emoji = "🥳🎉🎆"; // Muito feliz com fogos de artifício
+      }
+
+      document.getElementById("resultado").innerText = `Faltam ${vitorias_necessarias} vitórias ${emoji}`;
+
+
 
       fetch('https://b2c-api-cdn.deeplol.gg/summoner/summoner_rank?platform_id=BR1&lane=All&page=1')
       .then(res => res.json())
