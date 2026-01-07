@@ -69,14 +69,22 @@ body
       let emoji = "";
 
       if (vitorias_necessarias > 10) {
-        emoji = "😭"; // Triste
-      } else if (vitorias_necessarias > 5) {
-        emoji = "😐"; // Neutro
-      } else if (vitorias_necessarias > 2) {
-        emoji = "😊"; // Feliz
-      } else {
-        emoji = "🥳🎉🎆"; // Muito feliz com fogos de artifício
-      }
+  		emoji = "😭💔";
+	} else if (vitorias_necessarias === 9) {
+  		emoji = "😵🤯";
+	} else if (vitorias_necessarias === 8) {
+  		emoji = "😰😥";
+	} else if (vitorias_necessarias === 7) {
+  		emoji = "😓😖";
+	} else if (vitorias_necessarias === 6) {
+  		emoji = "😐😑";
+	} else if (vitorias_necessarias === 5) {
+  		emoji = "🙂😌";
+	} else if (vitorias_necessarias > 2) {
+  		emoji = "😊😁";
+	} else {
+  		emoji = "🥳🎉🎆";
+	}
 
       if (pontos_atual >= pontos_necessario) {
           document.getElementById("resultado").innerText = `Guiven Gudef Você conseguiu!!! ${emoji}`;
