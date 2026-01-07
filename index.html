@@ -68,10 +68,10 @@ body
 
       let emoji = "";
 
-      if (vitorias_necessarias > 10) {
-  		emoji = "😭💔";
+      if (vitorias_necessarias > 9) {
+  		emoji = "😭💔 F";
 	} else if (vitorias_necessarias === 9) {
-  		emoji = "😵🤯";
+  		emoji = "😵🤯 \n Bora de Mine?? 😈";
 	} else if (vitorias_necessarias === 8) {
   		emoji = "😰😥";
 	} else if (vitorias_necessarias === 7) {
@@ -85,6 +85,8 @@ body
 	} else {
   		emoji = "🥳🎉🎆";
 	}
+
+
 
       if (pontos_atual >= pontos_necessario) {
           document.getElementById("resultado").innerText = `Guiven Gudef Você conseguiu!!! ${emoji}`;
